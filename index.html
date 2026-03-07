@@ -400,7 +400,7 @@
 
     <script>
         const successSound = new Audio('https://assets.mixkit.co/active_storage/sfx/2013/2013-preview.mp3');
-        (function() { emailjs.init("YOUR_PUBLIC_KEY"); })();
+        (function() { emailjs.init("g7dPxlZeGAIFCQTB2"); })();
 
         let cart = {};
         let currentDirectBuy = null;
@@ -620,7 +620,7 @@
             btn.innerText = "Processing...";
             btn.disabled = true;
 
-            emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', {
+            emailjs.send('service_n0rlufv', 'template_5z1za9p', {
                 user_name: userData.name,
                 user_email: userData.email,
                 user_address: userData.address,
