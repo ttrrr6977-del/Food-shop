@@ -306,10 +306,10 @@
         
         <div class="food-grid" id="food-grid">
             <div class="food-card" id="burger-item">
-                <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400" class="food-image">
+                <img src="Idli.png" class="food-image">
                 <div class="food-info">
-                    <div class="food-name">Classic Burger</div>
-                    <div class="price">$12.99</div>
+                    <div class="food-name">Idli pitha</div>
+                    <div class="price"> ₹5</div>
                     <div class="main-qty-selector">
                         <button class="main-qty-btn" onclick="changeMainQty('burger-item', -1)">-</button>
                         <span class="main-qty-val" id="qty-burger-item">1</span>
@@ -321,23 +321,6 @@
                     </div>
                 </div>
             </div>
-            <div class="food-card" id="pizza-item">
-                <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=400" class="food-image">
-                <div class="food-info">
-                    <div class="food-name">Margherita Pizza</div>
-                    <div class="price">$14.50</div>
-                    <div class="main-qty-selector">
-                        <button class="main-qty-btn" onclick="changeMainQty('pizza-item', -1)">-</button>
-                        <span class="main-qty-val" id="qty-pizza-item">1</span>
-                        <button class="main-qty-btn" onclick="changeMainQty('pizza-item', 1)">+</button>
-                    </div>
-                    <div class="btn-group">
-                        <button class="action-btn btn-cart">Add</button>
-                        <button class="action-btn btn-buy">Buy</button>
-                    </div>
-                </div>
-            </div>
-        </div>
     </main>
 
     <nav class="bottom-nav">
@@ -358,7 +341,7 @@
             <div id="cart-footer" style="display: none;">
                 <div class="total-container">
                     <span style="font-weight: 700; font-size: 1.1rem;">Total Amount:</span>
-                    <span id="grand-total" style="color: var(--primary); font-weight: 800; font-size: 1.3rem;">$0.00</span>
+                    <span id="grand-total" style="color: var(--primary); font-weight: 800; font-size: 1.3rem;">₹0.00</span>
                 </div>
                 <button class="submit-btn" onclick="checkoutCart()">Proceed to Checkout</button>
             </div>
@@ -400,7 +383,7 @@
 
     <script>
         const successSound = new Audio('https://assets.mixkit.co/active_storage/sfx/2013/2013-preview.mp3');
-        (function() { emailjs.init("g7dPxlZeGAIFCQTB2"); })();
+        (function() { emailjs.init("YOUR_PUBLIC_KEY"); })();
 
         let cart = {};
         let currentDirectBuy = null;
@@ -478,7 +461,7 @@
 
             Object.keys(cart).forEach(id => {
                 const item = cart[id];
-                const itemPriceNum = parseFloat(item.price.replace('$', ''));
+                const itemPriceNum = parseFloat(item.price.replace('₹', ''));
                 grandTotal += itemPriceNum * item.qty;
                 totalItemsCount += item.qty;
 
@@ -501,7 +484,7 @@
             });
 
             counter.innerText = totalItemsCount;
-            totalEl.innerText = `$${grandTotal.toFixed(2)}`;
+            totalEl.innerText = `₹${grandTotal.toFixed(2)}`;
             emptyMsg.style.display = totalItemsCount ? 'none' : 'block';
             footer.style.display = totalItemsCount ? 'block' : 'none';
             
@@ -558,10 +541,10 @@
                     return; 
                 }
                 
-                const unitPrice = parseFloat(price.replace('$', ''));
+                const unitPrice = parseFloat(price.replace('₹', ''));
                 const total = (unitPrice * selectedQty).toFixed(2);
                 document.getElementById('payItemDetail').innerText = `${selectedQty}x ${name}`;
-                document.getElementById('payAmountDetail').innerText = `Total: $${total}`;
+                document.getElementById('payAmountDetail').innerText = `Total: ₹${total}`;
                 toggleModal('payModal');
             }
         });
@@ -595,9 +578,9 @@
             
             // Continue to payment if they were in the middle of a "Buy" or Checkout
             if(currentDirectBuy) {
-                const total = (parseFloat(currentDirectBuy.price.replace('$', '')) * currentDirectBuy.qty).toFixed(2);
+                const total = (parseFloat(currentDirectBuy.price.replace('₹', '')) * currentDirectBuy.qty).toFixed(2);
                 document.getElementById('payItemDetail').innerText = `${currentDirectBuy.qty}x ${currentDirectBuy.name}`;
-                document.getElementById('payAmountDetail').innerText = `Total: $${total}`;
+                document.getElementById('payAmountDetail').innerText = `Total: ₹${total}`;
                 toggleModal('payModal');
             } else if (Object.keys(cart).length > 0) {
                 checkoutCart();
@@ -620,7 +603,7 @@
             btn.innerText = "Processing...";
             btn.disabled = true;
 
-            emailjs.send('service_n0rlufv', 'template_5z1za9p', {
+            emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', {
                 user_name: userData.name,
                 user_email: userData.email,
                 user_address: userData.address,
